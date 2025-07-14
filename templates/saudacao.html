@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Saudação{% endblock %}
+
+{% block content %}
+<div class="saudacao-container">
+  <h2>👋 Olá, <span style="color: #1e3a8a;">{{ nome }}</span>!</h2>
+  <p>Seja muito bem-vindo ao nosso sistema. Esperamos que você aproveite sua experiência com nossos recursos interativos. 😄</p>
+
+  <div class="beneficios">
+    <p>✨ Aqui você pode:</p>
+    <ul>
+      <li>🧮 Usar a Calculadora Moderna</li>
+      <li>📝 Cadastrar e listar Tarefas</li>
+      <li>🔢 Contar Cliques e testar interatividade</li>
+      <li>📬 Entrar em contato com a equipe</li>
+    </ul>
+  </div>
+
+  <p style="margin-top: 20px;">
+    <a href="/" class="botao-voltar">⬅ Voltar à página inicial</a>
+  </p>
+</div>
+{% endblock %}

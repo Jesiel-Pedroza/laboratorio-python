@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}Calculadora Moderna{% endblock %}
+
+{% block content %}
+<div class="calculadora">
+  <h2 style="text-align: center; color: #1e40af;">🧮 Calculadora Moderna</h2>
+
+  <form action="/calcula" method="POST" id="calcForm">
+    <input type="text" name="expressao" id="expressao" placeholder="Digite ou use os botões..." value="{{ expressao or '' }}" required>
+
+    <div class="botoes">
+      {% for btn in ['7','8','9','/', '4','5','6','*', '1','2','3','-', '0','.','=','+', 'C','⌫'] %}
+        {% if btn == '=' %}
+          <button type="submit" class="igual">{{ btn }}</button>
+        {% elif btn == 'C' %}
+          <button type="button" onclick="limpar()" class="limpar">{{ btn }}</button>
+        {% elif btn == '⌫' %}
+          <button type="button" onclick="apagar()" class="apagar">{{ btn }}</button>
+        {% else %}
+          <button type="button" onclick="inserir('{{ btn }}')">{{ btn }}</button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </form>
+
+  {% if resultado is not none %}
+    <div class="resultado">
+      <strong>Resultado:</strong> {{ resultado }}
+    </div>
+  {% endif %}
+
+  <p style="text-align: center; margin-top: 15px;"><a href="/">⬅ Voltar à página inicial</a></p>
+</div>
+
+<style>
+  .calculadora {
+    max-width: 380px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffffee;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+
+  .calculadora input[type="text"] {
+    width: 100%;
+    font-size: 1.4em;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    text-align: right;
+    box-sizing: border-box;
+  }
+
+  .botoes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .botoes button {
+    font-size: 1.3em;
+    padding: 15px 0;
+    border: none;
+    background: #2563eb;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .botoes button:hover {
+    background: #1e40af;
+  }
+
+  .botoes .igual {
+    background: #10b981;
+  }
+
+  .botoes .igual:hover {
+    background: #059669;
+  }
+
+  .botoes .limpar {
+    background: #ef4444;
+  }
+
+  .botoes .limpar:hover {
+    background: #dc2626;
+  }
+
+  .botoes .apagar {
+    background: #f59e0b;
+  }
+
+  .botoes .apagar:hover {
+    background: #d97706;
+  }
+
+  .resultado {
+    margin-top: 20px;
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 1.1em;
+    color: #1e293b;
+    text-align: center;
+  }
+
+  @media (max-width: 450px) {
+    .calculadora {
+      width: 90%;
+    }
+
+    .botoes button {
+      font-size: 1.1em;
+    }
+  }
+</style>
+
+<script>
+  function inserir(valor) {
+    const input = document.getElementById('expressao');
+    input.value += valor;
+  }
+
+  function limpar() {
+    document.getElementById('expressao').value = '';
+  }
+
+  function apagar() {
+    const input = document.getElementById('expressao');
+    input.value = input.value.slice(0, -1);
+  }
+</script>
+{% endblock %}

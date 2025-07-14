@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Tarefas{% endblock %}
+
+{% block content %}
+<div class="todo-container">
+
+  <h2 class="titulo">📝 Minha Lista de Tarefas</h2>
+
+  <form method="POST" class="form-tarefa">
+    <input type="text" name="tarefa" placeholder="Digite uma nova tarefa" required class="campo-tarefa">
+    <button type="submit" class="botao-tarefa">➕ Adicionar Tarefa</button>
+  </form>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% if tarefas %}
+    <h3 class="subtitulo">Tarefas:</h3>
+    <ul class="lista-tarefas">
+      {% for tarefa in tarefas %}
+        <li>✅ {{ tarefa }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="sem-tarefas">Nenhuma tarefa adicionada ainda.</p>
+  {% endif %}
+
+  <a href="{{ url_for('index') }}" class="botao-voltar">⬅ Voltar para a Home</a>
+
+</div>
+{% endblock %}

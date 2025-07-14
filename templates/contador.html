@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Contador de Cliques{% endblock %}
+
+{% block content %}
+<div class="contador-container">
+  <h2>🔢 Contador de Cliques</h2>
+  <p>Quantas vezes você consegue clicar? Teste agora!</p>
+
+  <!-- Botões -->
+  <div style="display: flex; justify-content: center; gap: 10px;">
+    <form method="POST">
+      <input type="hidden" name="acao" value="incrementar">
+      <button type="submit" class="botao-contador">👆 Clique aqui!</button>
+    </form>
+
+    <form method="POST">
+      <input type="hidden" name="acao" value="zerar">
+      <button type="submit" class="botao-zerar">🔄 Zerar</button>
+    </form>
+  </div>
+
+  <!-- Resultado -->
+  <div class="resultado">
+    <p>📍 Você já clicou <strong>{{ session.get('cliques', 0) }}</strong> vez{{ 'es' if session.get('cliques', 0) != 1 else '' }}.</p>
+  </div>
+
+  <a href="/" class="botao-voltar">⬅ Voltar à página inicial</a>
+</div>
+{% endblock %}
